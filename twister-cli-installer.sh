@@ -6,13 +6,6 @@
 # https://github.com/twisterarmy/twister-cli-installer
 # Based on the openvpn-install codebase (https://github.com/angristan/openvpn-install)
 
-function isRoot() {
-  
-  if [ "$EUID" -ne 0 ]; then
-    return 1
-  fi
-}
-
 function checkOS() {
 
   if [[ -e /etc/debian_version ]]; then
