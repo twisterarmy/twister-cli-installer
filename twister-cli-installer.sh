@@ -78,6 +78,7 @@ function install() {
   echo "libdb++-dev"
   echo "libminiupnpc-dev"
   echo "automake"
+  echo "openssl"
   echo "ufw"
 
   echo ""
