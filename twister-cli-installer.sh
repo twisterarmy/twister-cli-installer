@@ -92,12 +92,22 @@ function install() {
     read -rp "Chose twister edition [twisterarmy/miguelfreitas]: " -e EDITION
   done
 
-  git clone https://github.com/$EDITION/twister-core.git
   mkdir ~/.twister
+  touch ~/.twister/twister.conf
   chmod 600 ~/.twister/twister.conf
   git clone https://github.com/$EDITION/twister-html.git ~/.twister/html
 
-  cd twister-core
+  if [[ $EDITION == "twisterarmy" ]]; then
+    cd ~/.twister/html
+    git checkout twisterarmy
+  fi
+
+  git clone https://github.com/$EDITION/twister-core.git ~/twister-core
+  cd ~/twister-core
+
+  if [[ $EDITION == "twisterarmy" ]]; then
+    git checkout twisterarmy
+  fi
 
   until [[ $USER_NAME != "" ]]; do
     read -rp "Enter RPC username: " -e USER_NAME
