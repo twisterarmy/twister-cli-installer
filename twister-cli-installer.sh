@@ -92,6 +92,10 @@ function install() {
     read -rp "Chose twister edition [twisterarmy/miguelfreitas]: " -e EDITION
   done
 
+  until [[ $ARM =~ (y|n) ]]; do
+    read -rp "Configure for ARM? [y/n]: " -e ARM
+  done
+
   mkdir ~/.twister
   touch ~/.twister/twister.conf
   chmod 600 ~/.twister/twister.conf
@@ -156,7 +160,13 @@ function install() {
 
   make clean
   ./autotool.sh
-  ./configure
+
+  if [[ $ARM == "y" ]]; then
+    ./configure --with-boost-libdir=/usr/lib/arm-linux-gnueabihf
+  else
+    ./configure
+  fi
+
   make
 
   echo "Installation process completed!"
