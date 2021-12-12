@@ -88,17 +88,14 @@ function install() {
 
   echo ""
 
-  until [[ $INSTALL =~ (y|n) ]]; do
-    read -rp "Install twister from the official sources? [y/n]: " -e INSTALL
+  until [[ $EDITION =~ (twisterarmy|miguelfreitas) ]]; do
+    read -rp "Chose twister edition [twisterarmy/miguelfreitas]: " -e EDITION
   done
-  if [[ $INSTALL == "n" ]]; then
-    exit 1
-  fi
 
-  git clone https://github.com/miguelfreitas/twister-core.git
+  git clone https://github.com/$EDITION/twister-core.git
   mkdir ~/.twister
   chmod 600 ~/.twister/twister.conf
-  git clone https://github.com/miguelfreitas/twister-html.git ~/.twister/html
+  git clone https://github.com/$EDITION/twister-html.git ~/.twister/html
 
   cd twister-core
 
@@ -170,4 +167,3 @@ function install() {
 initialCheck
 
 install
-
