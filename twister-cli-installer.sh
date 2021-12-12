@@ -138,14 +138,6 @@ function install() {
     sudo ufw allow 22
   fi
 
-  until [[ $PORTS =~ (y|n) ]]; do
-    read -rp "Open 6550 / 7550 ports to support the network? [y/n]: " -e PORTS
-  done
-  if [[ $PORTS == "y" ]]; then
-    sudo ufw allow 6550
-    sudo ufw allow 7550
-  fi
-
   until [[ $UFW =~ (y|n) ]]; do
 
     if [[ $REMOTE == "y" ]]; then
