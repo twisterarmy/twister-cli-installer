@@ -162,7 +162,7 @@ function install() {
   ./autotool.sh
 
   if [[ $ARM == "y" ]]; then
-    ./configure --with-boost-libdir=/usr/lib/arm-linux-gnueabihf
+    ./configure --with-boost-libdir=/usr/lib/arm-linux-gnueabihf --disable-sse2
   else
     ./configure
   fi
