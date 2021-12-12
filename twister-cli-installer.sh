@@ -83,8 +83,8 @@ function install() {
     exit 1
   fi
 
-  apt-get update
-  apt-get install git autoconf libtool build-essential libboost-all-dev libssl-dev libdb++-dev libminiupnpc-dev automake openssl ufw
+  sudo apt-get update
+  sudo apt-get install git autoconf libtool build-essential libboost-all-dev libssl-dev libdb++-dev libminiupnpc-dev automake openssl ufw
 
   echo ""
 
