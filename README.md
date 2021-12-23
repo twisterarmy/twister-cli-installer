@@ -3,11 +3,11 @@ Command-line Intallation Manager
 
 ### Features 
 Downloading required system dependencies  
-Downloading latest [twister-core](https://github.com/miguelfreitas/twister-core.git) and [twister-html](https://github.com/miguelfreitas/twister-html.git) versions from the official repositories  
-Compiling twister-core binaries  
-Remote/local node configuration options  
-SSL Configuration (with self-signed certificate)  
-Optional firewall setup (using UFW)  
+Downloading latest twister-core and twister-html: official or twisterarmy edition  
+Compiling twister-core binaries (ARM processors including)
+Remote/local node configuration  
+SSL sertificate configuration (optional)  
+Firewall setup (optional)  
 
 ### Supported OS
 Debian 9+ (untested)  
