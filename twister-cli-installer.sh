@@ -173,7 +173,11 @@ function install() {
   echo "Installation process completed!"
 
   if [[ $SSL == "y" ]]; then
-    echo "You can run SSL node by using following command: ./twisterd -rpcssl"
+    if [[ $REMOTE == "y" ]]; then
+      echo "You can run SSL node by using following command: ./twisterd -rpcssl -port=28333"
+    else
+      echo "You can run SSL node by using following command: ./twisterd -rpcssl"
+    fi
   fi
 }
 
