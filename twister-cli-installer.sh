@@ -6,51 +6,6 @@
 # https://github.com/twisterarmy/twister-cli-installer
 # Based on the openvpn-install codebase (https://github.com/angristan/openvpn-install)
 
-function checkOS() {
-
-  if [[ -e /etc/debian_version ]]; then
-    OS="debian"
-    source /etc/os-release
-
-    if [[ $ID == "debian" ]]; then
-      if [[ $VERSION_ID -lt 9 ]]; then
-        echo "⚠️ Your version of Debian is not supported."
-        echo ""
-        echo "However, if you're using Debian >= 9 or unstable/testing then you can continue, at your own risk."
-        echo ""
-        until [[ $CONTINUE =~ (y|n) ]]; do
-          read -rp "Continue? [y/n]: " -e CONTINUE
-        done
-        if [[ $CONTINUE == "n" ]]; then
-          exit 1
-        fi
-      fi
-    elif [[ $ID == "ubuntu" ]]; then
-      OS="ubuntu"
-      MAJOR_UBUNTU_VERSION=$(echo "$VERSION_ID" | cut -d '.' -f1)
-      if [[ $MAJOR_UBUNTU_VERSION -lt 20 ]]; then
-        echo "⚠️ Your version of Ubuntu is not supported."
-        echo ""
-        echo "However, if you're using Ubuntu >= 20.04 or beta, then you can continue, at your own risk."
-        echo ""
-        until [[ $CONTINUE =~ (y|n) ]]; do
-          read -rp "Continue? [y/n]: " -e CONTINUE
-        done
-        if [[ $CONTINUE == "n" ]]; then
-          exit 1
-        fi
-      fi
-    fi
-  else
-    echo "Looks like you aren't running this installer on a Debian or Ubuntu system"
-    exit 1
-  fi
-}
-
-function initialCheck() {
-  checkOS
-}
-
 function install() {
 
   echo "Welcome to the Twister installer!"
@@ -180,7 +135,3 @@ function install() {
     fi
   fi
 }
-
-initialCheck
-
-install
