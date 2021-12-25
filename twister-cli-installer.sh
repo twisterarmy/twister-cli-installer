@@ -90,11 +90,12 @@ function install() {
   sudo ufw status
 
   until [[ $REMOTE =~ (y|n) ]]; do
-    read -rp "Is this remote node (28332, 28333 and 22 ports will be allowed in the iptables rules)? [y/n]: " -e REMOTE
+    read -rp "Is this remote node (28332, 28333, 29333 and 22 ports will be allowed in the iptables rules)? [y/n]: " -e REMOTE
   done
   if [[ $REMOTE == "y" ]]; then
     sudo ufw allow 28332
     sudo ufw allow 28333
+    sudo ufw allow 29333
     sudo ufw allow 22
   fi
 
