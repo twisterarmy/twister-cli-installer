@@ -83,7 +83,7 @@ function install() {
   done
   if [[ $SSL == "y" ]]; then
     openssl req -x509 -newkey rsa:4096 -keyout ~/.twister/key.pem -out ~/.twister/cert.pem -days 365 -nodes
-    echo -e "rpcuser=$USER_NAME\nrpcpassword=$PASSWORD\nrpcsslcertificatechainfile=~/.twister/cert.pem\nrpcsslprivatekeyfile=~/.twister/key.pem" > ~/.twister/twister.conf
+    echo -e "rpcallowip=*\nrpcuser=$USER_NAME\nrpcpassword=$PASSWORD\nrpcsslcertificatechainfile=~/.twister/cert.pem\nrpcsslprivatekeyfile=~/.twister/key.pem" > ~/.twister/twister.conf
   fi
 
   echo "Check firewall rules..."
