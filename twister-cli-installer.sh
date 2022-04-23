@@ -136,3 +136,5 @@ function install() {
     fi
   fi
 }
+
+install
