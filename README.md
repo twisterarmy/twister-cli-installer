@@ -1,25 +1,28 @@
 # twister-cli-installer
 Command-line Intallation Manager
 
-### Features 
-Downloading required system dependencies  
-Downloading latest twister-core and twister-html: official or twisterarmy edition  
+### Features
+Downloading required system dependencies
+Downloading latest twister-core and twister-html: official or twisterarmy edition
 Compiling twister-core binaries (ARM processors including)
-Remote/local node configuration  
-SSL sertificate configuration (optional)  
-Firewall setup (optional)  
+Remote/local node configuration
+SSL sertificate configuration (optional)
+Firewall setup (optional)
 
 ### Supported OS
-Debian 9+ (untested)  
+Debian 9+ (untested)
 Ubuntu 20.04+
 
-### Algorithms 
+### Algorithms
 https://github.com/twisterarmy/documentation/wiki/Remote-Twister-Node-setup-(Ubuntu-Debian)
 
-### Source usage 
+### Source
 https://github.com/angristan/openvpn-install
 
-### License 
+### Usage
+execute twister-cli-installer.sh script from the user you want to run twister
+
+### License
 
 MIT License
 
