@@ -61,8 +61,8 @@ function install() {
     git checkout twisterarmy
   fi
 
-  git clone https://github.com/$EDITION/twister-core.git ~/twister-core
-  cd ~/twister-core
+  git clone https://github.com/$EDITION/twister-core.git $HOME/twister-core
+  cd $HOME/twister-core
 
   if [[ $EDITION == "twisterarmy" ]]; then
     git checkout twisterarmy
