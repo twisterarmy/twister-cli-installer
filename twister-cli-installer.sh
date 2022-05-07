@@ -51,13 +51,13 @@ function install() {
     read -rp "Configure for ARM? [y/n]: " -e ARM
   done
 
-  mkdir ~/.twister
-  touch ~/.twister/twister.conf
-  chmod 600 ~/.twister/twister.conf
-  git clone https://github.com/$EDITION/twister-html.git ~/.twister/html
+  mkdir $HOME/.twister
+  touch $HOME/.twister/twister.conf
+  chmod 600 $HOME/.twister/twister.conf
+  git clone https://github.com/$EDITION/twister-html.git $HOME/.twister/html
 
   if [[ $EDITION == "twisterarmy" ]]; then
-    cd ~/.twister/html
+    cd $HOME/.twister/html
     git checkout twisterarmy
   fi
 
@@ -76,14 +76,14 @@ function install() {
     read -rp "Enter RPC password: " -e PASSWORD
   done
 
-  echo -e "rpcuser=$USER_NAME\nrpcpassword=$PASSWORD" > ~/.twister/twister.conf
+  echo -e "rpcuser=$USER_NAME\nrpcpassword=$PASSWORD" > $HOME/.twister/twister.conf
 
   until [[ $SSL =~ (y|n) ]]; do
     read -rp "Enable SSL connection? [y/n]: " -e SSL
   done
   if [[ $SSL == "y" ]]; then
-    openssl req -x509 -newkey rsa:4096 -keyout ~/.twister/key.pem -out ~/.twister/cert.pem -days 365 -nodes
-    echo -e "rpcallowip=*\nrpcuser=$USER_NAME\nrpcpassword=$PASSWORD\nrpcsslcertificatechainfile=~/.twister/cert.pem\nrpcsslprivatekeyfile=~/.twister/key.pem" > ~/.twister/twister.conf
+    openssl req -x509 -newkey rsa:4096 -keyout $HOME/.twister/key.pem -out $HOME/.twister/cert.pem -days 365 -nodes
+    echo -e "rpcallowip=*\nrpcuser=$USER_NAME\nrpcpassword=$PASSWORD\nrpcsslcertificatechainfile=$HOME/.twister/cert.pem\nrpcsslprivatekeyfile=$HOME/.twister/key.pem" > $HOME/.twister/twister.conf
   fi
 
   echo "Check firewall rules..."
