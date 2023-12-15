@@ -27,7 +27,7 @@ https://github.com/angristan/openvpn-install
 
 ### Usage
 
-Run `twister-cli-installer/debian/install.sh` script by user you want to run twister and answer manager questions.
+Run `debian/install.sh` script by user you want to run twister and answer manager questions.
 
 ### License
 
