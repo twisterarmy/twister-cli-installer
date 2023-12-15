@@ -4,9 +4,9 @@ Command-line Installation Manager
 
 ### Features
 
-* Downloading required system dependencies
-* Downloading latest twister-core and twister-html: `miguelfreitas` or `twisterarmy` edition
-* Compiling twister-core binaries (ARM processors including)
+* Install required system dependencies
+* Download latest twister-core and twister-html: `miguelfreitas` or `twisterarmy` edition
+* Compile twister-core binaries (ARM processors including)
 * Remote/local node configuration
 * SSL certificate configuration (optional)
 * Firewall setup (optional)
