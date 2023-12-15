@@ -133,15 +133,39 @@ function install() {
   echo "Installation process completed!"
 
   if [[ $SDS == "y" ]]; then
+
+    echo "Generate systemd service..."
+
+    sudo echo -e "[Unit]" >> /etc/systemd/system/twisterd.service
+    sudo echo -e "Description=twister" >> /etc/systemd/system/twisterd.service
+    sudo echo -e "After=network.target" >> /etc/systemd/system/twisterd.service
+    sudo echo -e "" >> /etc/systemd/system/twisterd.service
+
+    sudo echo -e "[Service]" >> /etc/systemd/system/twisterd.service
+    sudo echo -e "Type=simple\nUser=$USER" >> /etc/systemd/system/twisterd.service
+
     if [[ $SSL == "y" ]]; then
       if [[ $REMOTE == "y" ]]; then
-        sudo echo -e "[Unit]\nDescription=twister\nAfter=network.target\n\n[Service]\nType=simple\nUser=$USER\nExecStart=$HOME/twister-core/twister-core/twisterd -rpcssl -port=28333\nStandardOutput=file:$HOME/.twisterd/debug.log\nStandardError=file:$HOME/.twisterd/error.log\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/twisterd.service
+        sudo echo -e "ExecStart=$HOME/twister-core/twister-core/twisterd -rpcssl -port=28333" >> /etc/systemd/system/twisterd.service
       else
-        sudo echo -e "[Unit]\nDescription=twister\nAfter=network.target\n\n[Service]\nType=simple\nUser=$USER\nExecStart=$HOME/twister-core/twister-core/twisterd -rpcssl\nStandardOutput=file:$HOME/.twisterd/debug.log\nStandardError=file:$HOME/.twisterd/error.log\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/twisterd.service
+        sudo echo -e "ExecStart=$HOME/twister-core/twister-core/twisterd -rpcssl" >> /etc/systemd/system/twisterd.service
       fi
     else
-      sudo echo -e "[Unit]\nDescription=twister\nAfter=network.target\n\n[Service]\nType=simple\nUser=$USER\nExecStart=$HOME/twister-core/twister-core/twisterd\nStandardOutput=file:$HOME/.twisterd/debug.log\nStandardError=file:$HOME/.twisterd/error.log\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/twisterd.service
+      if [[ $REMOTE == "y" ]]; then
+        sudo echo -e "ExecStart=$HOME/twister-core/twister-core/twisterd -port=28333" >> /etc/systemd/system/twisterd.service
+      else
+        sudo echo -e "ExecStart=$HOME/twister-core/twister-core/twisterd" >> /etc/systemd/system/twisterd.service
+      fi
     fi
+
+    sudo echo -e "StandardOutput=file:$HOME/.twisterd/debug.log" >> /etc/systemd/system/twisterd.service
+    sudo echo -e "StandardError=file:$HOME/.twisterd/error.log" >> /etc/systemd/system/twisterd.service
+    sudo echo -e "Restart=on-failure" >> /etc/systemd/system/twisterd.service
+    sudo echo -e "" >> /etc/systemd/system/twisterd.service
+
+    sudo echo -e "[Install]" >> /etc/systemd/system/twisterd.service
+    sudo echo -e "WantedBy=multi-user.target" >> /etc/systemd/system/twisterd.service
+
     sudo systemctl daemon-reload
   fi
 
