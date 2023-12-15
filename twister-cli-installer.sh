@@ -51,6 +51,10 @@ function install() {
     read -rp "Configure for ARM? [y/n]: " -e ARM
   done
 
+  until [[ $SDS =~ (y|n) ]]; do
+    read -rp "Create systemd service? [y/n]: " -e SDS
+  done
+
   mkdir $HOME/.twister
   touch $HOME/.twister/twister.conf
   chmod 600 $HOME/.twister/twister.conf
@@ -128,12 +132,31 @@ function install() {
 
   echo "Installation process completed!"
 
+  if [[ $SDS == "y" ]]; then
+    if [[ $SSL == "y" ]]; then
+      if [[ $REMOTE == "y" ]]; then
+        sudo echo -e "[Unit]\nDescription=twister\nAfter=network.target\n\n[Service]\nType=simple\nUser=$USER\nExecStart=$HOME/twister-core/twister-core/twisterd -rpcssl -port=28333\nStandardOutput=file:$HOME/.twisterd/debug.log\nStandardError=file:$HOME/.twisterd/error.log\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/twisterd.service
+      else
+        sudo echo -e "[Unit]\nDescription=twister\nAfter=network.target\n\n[Service]\nType=simple\nUser=$USER\nExecStart=$HOME/twister-core/twister-core/twisterd -rpcssl\nStandardOutput=file:$HOME/.twisterd/debug.log\nStandardError=file:$HOME/.twisterd/error.log\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/twisterd.service
+      fi
+    else
+      sudo echo -e "[Unit]\nDescription=twister\nAfter=network.target\n\n[Service]\nType=simple\nUser=$USER\nExecStart=$HOME/twister-core/twister-core/twisterd\nStandardOutput=file:$HOME/.twisterd/debug.log\nStandardError=file:$HOME/.twisterd/error.log\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/twisterd.service
+    fi
+    sudo systemctl daemon-reload
+  fi
+
   if [[ $SSL == "y" ]]; then
     if [[ $REMOTE == "y" ]]; then
-      echo "You can run SSL node by using following command: ./twisterd -rpcssl -port=28333"
+      echo "Run SSL node by using following command: ./twisterd -rpcssl -port=28333"
     else
-      echo "You can run SSL node by using following command: ./twisterd -rpcssl"
+      echo "Run SSL node by using following command: ./twisterd -rpcssl"
     fi
+  else
+    echo "Run SSL node by using following command: ./twisterd"
+  fi
+
+  if [[ $SDS == "y" ]]; then
+    echo "With systemd: service twisterd start"
   fi
 }
 
